@@ -5,7 +5,7 @@ import { env } from './utils/env.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
-import contactsRouter from './routes/contacts.js';
+import contactsRouter from './routers/contacts.js';
 
 
 const PORT = env.PORT || 3000;
@@ -14,7 +14,12 @@ export const setupServer = () => {
   const app = express();
 
 
-  app.use(express.json());
+ app.use(
+  express.json({
+    type: ['application/json', 'application/vnd.api+json'],
+    limit: '100kb',
+  }),
+);
   app.use(cors());
 
   app.use(
