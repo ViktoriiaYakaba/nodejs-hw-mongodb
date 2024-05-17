@@ -18,15 +18,18 @@ export const createContacts = async (payload) => {
 
 export const deleteContact = async (contactId) => {
     const contact = await ContactsCollection.findOneAndDelete({
-        _id: (contactId),
+        _id: contactId,
     });
 
     return contact;
 };
 
-export const updateContact = async (contactId, payload, optios = {}) => {
-    const rawResult = await ContactsCollection.findOneAndUpdate({ _id: contactId },
-         payload, {
+export const updateContact = async (contactId, payload, options = {}) => {
+
+    const rawResult = await ContactsCollection.findOneAndUpdate(
+        { _id: contactId },
+        payload,
+        {
         new: true,
         includeResultMetadata: true,
         ...options,

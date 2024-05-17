@@ -10,10 +10,10 @@ router.get('/contacts/:contactId', ctrlWrapper(getContactsByIdController));
 
 router.post('/contacts', ctrlWrapper(createContactController));
 
-router.delete('/contacts/:contactId'), ctrlWrapper(deleteContactController);
+router.delete('/contacts/:contactId', ctrlWrapper(deleteContactController));
 
-router.put('/students/:studentId', ctrlWrapper(updateContactController));
+router.put('/contacts/:contactId', ctrlWrapper(updateContactController));
 
-router.patch('/students/:studentId', ctrlWrapper(patchContactController));
+router.patch('/contacts/:contactId', ctrlWrapper(patchContactController));
 
  export default router;
