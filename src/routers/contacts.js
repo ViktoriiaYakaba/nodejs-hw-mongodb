@@ -13,7 +13,7 @@ import { creaContactSchema, updateContactSchema } from '../validation/contacts.j
 
 const router = Router();
 
-router.get('/contacts',validateBody(creaContactSchema), ctrlWrapper(getContactsController) );
+router.get('/contacts', ctrlWrapper(getContactsController) );
 
 router.get('/contacts/:contactId', ctrlWrapper(getContactsByIdController));
 
