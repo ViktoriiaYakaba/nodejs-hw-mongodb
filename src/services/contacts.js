@@ -1,22 +1,29 @@
 import { ContactsCollection } from "../db/models/contact.js";
 import { calculatePaginationData } from "../utils/calculatePaginationData.js";
 import { SORT_ORDER } from "../constans/index.js";
+import { parseFilterParams } from "../utils/parseFilterParams.js";
 
-
-
-
-export const getAllContacts = async (page=1,
-    perPage=10,
+export const getAllContacts = async(page=1,
+    perPage = 10,
     sortOrder = SORT_ORDER.ASC,
     sortBy = 'name',
+    filter={},
 ) => {
     const limit = perPage;
     const skip = (page - 1) * perPage;
 
+
     const contactsQuery = ContactsCollection.find();
+
+     const parsedFilter = parseFilterParams(filter);
+
+     if (parsedFilter.isFavourite !== undefined) {
+        contactsQuery.where('isFavourite').equals(parsedFilter.isFavourite);
+    }
+
     const contactsCount = await ContactsCollection.find().merge(contactsQuery).countDocuments();
     const contacts = await contactsQuery.skip(skip).limit(limit).sort({[sortBy]: sortOrder}).exec();
-    const paginationData = calculatePaginationData(  contactsCount, perPage, page);
+    const paginationData = calculatePaginationData( contactsCount, perPage, page);
 
 
     return {
