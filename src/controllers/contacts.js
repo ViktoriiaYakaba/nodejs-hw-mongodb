@@ -28,14 +28,18 @@ export const getContactsByIdController = async (req, res, next) => {
   });
 };
 
-export const createContactController = async (req, res) => {
-  const contact = await createContacts(req.body);
+export const createContactController = async (req, res, next) => {
+  const { name, phoneNumber, email, isFavourite, contactType } = await createContacts(req.body);
 
-  res.json({
-    status: 201,
-    message: `Successfully created a contact!`,
-    data: contact,
-  });
+  if (!name || !phoneNumber) {
+        next(createHttpError(400, 'Name and phoneNumber are required'));
+    }
+ const newContact = await createContacts({ name, phoneNumber, email, isFavourite, contactType });
+        res.status(201).json({
+            status: 201,
+            message: 'Successfully created a contact!',
+            data: newContact,
+        });
 };
 
 export const deleteContactController = async (req, res, next) => {
