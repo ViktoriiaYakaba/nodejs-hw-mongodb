@@ -32,7 +32,7 @@ export const setupServer = () => {
 
   app.use(contactsRouter);
 
-app.use('*', notFoundHandler);
+  app.use('*', notFoundHandler);
 
   app.use(errorHandler);
 
