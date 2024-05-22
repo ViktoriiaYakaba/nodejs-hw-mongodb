@@ -40,9 +40,16 @@ export const setupServer = () => {
       const { contactId } = req.params;
       const contact = await getContactsById(contactId);
 
+      if (!contact) {
+        return res.status(404).json({
+          status: 'error',
+          message: 'Not found',
+        });
+      }
+
       res.status(200).json({
         status: 'success',
-        message: 'Successfully found contact with id {contactId}!',
+        message: `Successfully found contact with id ${contactId}!`,
         data: contact,
       });
     } catch (error) {
@@ -50,7 +57,7 @@ export const setupServer = () => {
         status: 'error',
         message: 'Failed to retrieve contacts',
         error: error.message,
-      })
+      });
     }
 
   });
