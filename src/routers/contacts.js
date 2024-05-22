@@ -4,7 +4,7 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
 const router = Router();
 
-router.get('/contacts', ctrlWrapper(getContactsController) );
+router.get('/contacts', ctrlWrapper(getContactsController));
 
 router.get('/contacts/:contactId', ctrlWrapper(getContactsByIdController));
 
@@ -16,4 +16,4 @@ router.put('/contacts/:contactId', ctrlWrapper(updateContactController));
 
 router.patch('/contacts/:contactId', ctrlWrapper(patchContactController));
 
- export default router;
+export default router;
