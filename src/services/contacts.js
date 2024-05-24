@@ -5,9 +5,9 @@ import { parseFilterParams, parseIsFavourite } from "../utils/parseFilterParams.
 
 export const getAllContacts = async (page=1, perPage=10, sortBy = 'name', sortOrder = SORT_ORDER.ASC, filter = {}) => {
    const limit = perPage;
-  const skip = (page - 1) * perPage;
+   const skip = (page - 1) * perPage;
 
-  const parsedFilter = parseFilterParams(filter);
+    const parsedFilter = parseFilterParams(filter);
     let contactsQuery = ContactsCollection.find().skip(skip).limit(limit).sort({ [sortBy]: sortOrder });
 
       if (filter.isFavourite !== undefined) {
