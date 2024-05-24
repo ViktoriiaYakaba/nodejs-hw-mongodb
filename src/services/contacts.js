@@ -3,36 +3,21 @@ import { calculatePaginationData } from "../utils/calculatePaginationData.js";
 import { SORT_ORDER } from "../constans/index.js";
 import { parseFilterParams } from "../utils/parseFilterParams.js";
 
-export const getAllContacts = async(page=1,
-    perPage=10,
-    sortOrder = SORT_ORDER.ASC,
-    sortBy = 'name',
-    filter={},
-) => {
-    const limit = perPage;
-    const skip = (page - 1) * limit;
+export const getAllContacts = async (page, perPage, sortBy = 'name', sortOrder = SORT_ORDER.ASC, filter = {}) => {
+  const limit = parseInt(perPage, 10);
+  const skip = (parseInt(page, 10) - 1) * limit;
 
+  const parsedFilter = parseFilterParams(filter);
+  const contactsQuery = ContactsCollection.find().skip(skip).limit(limit).sort({[sortBy]: sortOrder});
+  const contactsCount = await ContactsCollection.countDocuments(parsedFilter);
+  const contacts = await contactsQuery.exec();
+  const paginationData = calculatePaginationData(contactsCount, limit, parseInt(page, 10));
 
-    const contactsQuery = ContactsCollection.find();
-
-     const parsedFilter = parseFilterParams(filter);
-
-     if (parsedFilter.isFavourite !== undefined) {
-        contactsQuery.where('isFavourite').equals(parsedFilter.isFavourite);
-    }
-
-    const contactsCount = await ContactsCollection.find().merge(contactsQuery).countDocuments();
-    const contacts = await contactsQuery.skip(skip).limit(limit).sort({[sortBy]: sortOrder}).exec();
-    const paginationData = calculatePaginationData( contactsCount, perPage, page);
-
-
-    return {
-        data: contacts,
-        ...paginationData,
-    };
+  return {
+    data: contacts,
+    ...paginationData,
+  };
 };
-
-
 
 export const getContactsById = async (contactId) => {
     const contact = await ContactsCollection.findById(contactId);
