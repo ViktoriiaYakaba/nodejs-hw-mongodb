@@ -1,4 +1,4 @@
-const parseIsFavourite = (isFavourite) => {
+export const parseIsFavourite = (isFavourite) => {
   if (typeof isFavourite === 'boolean') {
     return isFavourite;
   } else if (typeof isFavourite === 'string') {
