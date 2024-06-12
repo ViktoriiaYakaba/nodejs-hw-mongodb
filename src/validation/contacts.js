@@ -13,16 +13,19 @@ export const creaContactSchema = Joi.object({
     contactType: Joi.string().min(3).max(20).valid('work', 'home', 'personal').required(),
     createdAt: Joi.date().iso().required(),
     updatedAt: Joi.date().iso().required(),
+    photo: Joi.string().optional(), 
 });
 
 export const updateContactSchema = Joi.object({
     name: Joi.string().min(3).max(20),
-    phoneNumber: Joi.string().min(3).max(20),
+    phoneNumber: Joi.string().min(3).max(20).required(),
     email: Joi.string().email().required(),
-    isFavourite: Joi.boolean(),
-    contactType: Joi.string().min(3).max(20).valid('work', 'home', 'personal'),
-    createdAt: Joi.date().iso(),
-    updatedAt: Joi.date().iso(),
+    isFavourite: Joi.boolean().required(),
+    contactType: Joi.string().min(3).max(20).valid('work', 'home', 'personal').required(),
+    createdAt: Joi.date().iso().required(),
+    updatedAt: Joi.date().iso().required(),
+    photo: Joi.string().optional(),
 });
+
 
 
