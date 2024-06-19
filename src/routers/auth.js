@@ -12,8 +12,7 @@ import { requestResetEmailController } from "../controllers/auth.js";
 import { resetPasswordSchema } from "../validation/auth.js";
 import { resetPasswordController } from "../controllers/auth.js";
 import { getGoogleOAuthUrlController } from "../controllers/auth.js";
-import { loginUserSchema } from "../validation/auth.js";
-import { loginUserController } from "../controllers/auth.js";
+
 
 const router = Router();
 
