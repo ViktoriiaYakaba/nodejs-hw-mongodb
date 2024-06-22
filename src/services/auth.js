@@ -158,7 +158,9 @@ export const resetPassword = async (payload) => {
 };
 
 export const loginOrSignupWithGoogle = async (code) => {
+
   const loginTicket = await validateCode(code);
+
   const payload = loginTicket.getPayload();
   if (!payload) throw createHttpError(401);
 
@@ -169,7 +171,7 @@ export const loginOrSignupWithGoogle = async (code) => {
       email: payload.email,
       name: getFullNameFromGoogleTokenPayload(payload),
       password,
-      role: 'parent',
+      userId,
     });
   }
 
